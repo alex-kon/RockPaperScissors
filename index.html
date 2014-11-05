@@ -3,8 +3,42 @@
 <head lang="en">
 	<meta charset="UTF-8">
 	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
-	
+
+	<div class="container-fluid">
+		<div class="game-board">
+
+			<div class"start-game"></div>
+			
+			<div class="row">
+
+				<div class="game-board_player1 col-xs-4"></div>
+
+				<div class="game-board_score-board col-xs-4"></div>			
+
+				<div class="game-board_player2 col-xs-4"></div>
+
+				<div class="game-board_computer col-xs-4"></div>
+
+			</div>
+
+			<div class="row">
+				<div class="game-board_player1-choices col-xs-4">
+					<ul class="choices">
+						<li class="rock">Rock</li>
+						<li class="paper">Paper</li>
+						<li class="scisccors">Scissors</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script src="js/getElementsByCLassName.polyfill.js"> </script>
+	<script src="target/bundle.js"> </script>
 </body>
 </html>

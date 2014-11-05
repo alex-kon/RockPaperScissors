@@ -1,17 +1,21 @@
 {
-  "name": "Rock Paper Scissors app",
+  "name": "RockPaperScissorsApp",
+  "version" : "0.0.1",
   "description": "A javascrpipt web app of the popular game Rock Paper Scissors",
   "author": "A Konidaris",
   "scripts" : {
-  	"test" : "",
+  	"test" : "grunt mochaTest",
+    "clean" : "grunt"
   },
   "dependencies": {
   	"browserify" : "6.2.x",
   	"grunt" : "0.4.x",
-  	"grunt-cli" : "0.1.x"
+  	"grunt-cli" : "0.1.x",
+    "browserify": "^4.1.9",
+    "grunt-browserify": "^2.1.0",
+    "mocha" : "2.0.x",
+    "grunt-mocha-test" : "0.12.x",
+    "chai" : "1.9.x"
   },
-  "devDependecies": {
-
-  },
-  "engine": "node 0.4.1"
+  "engine": "node 0.10.x"
 }

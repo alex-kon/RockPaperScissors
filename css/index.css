@@ -1,0 +1,11 @@
+.game-board {
+	height: 400px;
+	border:1px solid;
+}
+.game-board_computer {
+	display: none;
+}
+.game-board li{
+	display: block;
+	border:1px solid;
+}
