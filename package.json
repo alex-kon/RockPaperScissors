@@ -1,0 +1,17 @@
+{
+  "name": "Rock Paper Scissors app",
+  "description": "A javascrpipt web app of the popular game Rock Paper Scissors",
+  "author": "A Konidaris",
+  "scripts" : {
+  	"test" : "",
+  },
+  "dependencies": {
+  	"browserify" : "6.2.x",
+  	"grunt" : "0.4.x",
+  	"grunt-cli" : "0.1.x"
+  },
+  "devDependecies": {
+
+  },
+  "engine": "node 0.4.1"
+}
