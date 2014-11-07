@@ -9,36 +9,59 @@
 </head>
 <body>
 
+	<div class="start-game">Start a new Game</div>
+	<div class="play-again">Play Again</div>
+
+
 	<div class="container-fluid">
-		<div class="game-board">
-
-			<div class"start-game"></div>
-			
-			<div class="row">
-
-				<div class="game-board_player1 col-xs-4"></div>
-
-				<div class="game-board_score-board col-xs-4"></div>			
-
-				<div class="game-board_player2 col-xs-4"></div>
-
-				<div class="game-board_computer col-xs-4"></div>
+		
+		<div class="start-game-panel row">
+			<div class="start-game">
 
 			</div>
+			<div class="choose-game">
+				<h1>Play Rock Paper Scissors</h1>
+				<h2>Choose the type of game to play</h2>
+				<div class="game-mode">
+					<button type="button" class="btn btn-primary btn-lg computer-vs-computer">Computer Vs Computer</button>
+  					<button type="button" class="btn btn-default btn-lg player-vs-computer">Player vs Computer</button>
+  				</div>
+			</div>
+		</div>
+
+		<div class="game-board">
+			
+			<h1 class="header-player">Play against the computer - Choose your hand to start playing</h1>
+
+			<h1 class="header-computer">Computer vs Computer - hit start to start playing</h1>
 
 			<div class="row">
-				<div class="game-board_player1-choices col-xs-4">
-					<ul class="choices">
-						<li class="rock">Rock</li>
-						<li class="paper">Paper</li>
-						<li class="scisccors">Scissors</li>
-					</ul>
+			
+				<div class="game-board_player1 col-md-4">
+					<div class="btn-group choices">
+						<div class="btn-group btn btn-default rock">Rock</div>
+  						<div class="btn-group btn btn-primary paper">Paper</div>
+  						<div class="btn-group btn btn-info scisccors">Scissors</div>
+					</div>
 				</div>
+
+				<div class="game-board_score-board col-md-4"></div>			
+
+				<div class="game-board_player2 col-md-4">
+					<div class="btn-group choices">
+						<div class="btn-group btn btn-default rock">Rock</div>
+  						<div class="btn-group btn btn-default paper">Paper</div>
+  						<div class="btn-group btn btn-default scisccors">Scissors</div>
+					</div>
+				</div>
+
+				<div class="game-board_computer col-md-4"></div>
+
 			</div>
 
 		</div>
 	</div>
-	<script src="js/getElementsByCLassName.polyfill.js"> </script>
+
 	<script src="target/bundle.js"> </script>
 </body>
 </html>
