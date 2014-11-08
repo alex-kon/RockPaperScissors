@@ -1,9 +1,13 @@
 
 [0m[0m
-[0m  Array[0m
-[0m    #indexOf()[0m
-[2K[0G    [32m  ✓[0m[90m should return -1 when the value is not present [0m
+[0m  test the ComputerPlayer Model[0m
+1 '*******'
+[2K[0G  [32m  ✓[0m[90m calling the Computer model getter should set a random value of rock,paper or scissors [0m
+
+[0m  test the Player Model[0m
+[2K[0G  [32m  ✓[0m[90m seting a selection for the Player model should set the correct value [0m
+[2K[0G  [32m  ✓[0m[90m calling the Player model getter should set the correct value [0m
 
 
-[92m [0m[32m 1 passing[0m[90m (4ms)[0m
+[92m [0m[32m 3 passing[0m[90m (7ms)[0m
 

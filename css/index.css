@@ -43,6 +43,9 @@ body{
 	display: none;
 	text-align: center;
 }
+.result{
+	text-align: center;
+}
 /*** starting game board (Game Mode selection - welcome screen) ***/
 .start-game{
 	position: fixed;
