@@ -1,4 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Game = require('./js/Game');
+Game.init();
+},{"./js/Game":3}],2:[function(require,module,exports){
 var Player = require('./Player');
 
 var config = require('./config');
@@ -8,13 +11,12 @@ function ComputerPlayer(name){
 	Player.call(this,name);
 }
 ComputerPlayer.prototype.getRandomSelection = function(first_argument) {
-	var index = Math.floor(Math.random() * (2 - 0) + 0);
-	console.log(index,'*******')
+	var index = Math.floor(Math.random() * 3);
 	return {"index":index,"value":config.options[index]};
 };
 
 module.exports = ComputerPlayer;
-},{"./Player":3,"./config":4}],2:[function(require,module,exports){
+},{"./Player":4,"./config":5}],3:[function(require,module,exports){
 var PlayerModel = require('./Player');
 var ComputerModel = require('./ComputerPlayer');
 
@@ -71,8 +73,10 @@ var Game = {
 		var userSelection = HumanPlayer.getSelection();
 
 		//get the Winner
-		this.getWinner(computerSelection,userSelection);
+		var result = this.getWinner(userSelection,computerSelection);
 
+		//show the result in the screen
+		this.displayWinner(result);
 	},
 	setHumanSelection : function(userChoice){
 		if(userChoice.indexOf(rock) >= 0){
@@ -84,21 +88,62 @@ var Game = {
 		}	
 	},
 	//determine the winner of the game based on the choices provided
-	getWinner : function(computerSelection,userSelection){
-		var computerIndex = computerSelection.index,
-			userIndex = userSelection.index;
+	getWinner : function(playerOneChoice,playerTwoChoice){
 
-		if(computerSelection.index === userSelection.index){
-			this.displayWinner("draw")
+		var playerOneIndex = playerOneChoice.index,
+			playerTwoIndex = playerTwoChoice.index,
+			valueOne = playerOneChoice.value,
+			valueTwo = playerTwoChoice.value
+			result={};
+
+		//if the indexes are the same then it is a tie
+		//Note the indexes start 0 in an Array, that is why we compare up to 2 : file config.js
+		if(valueOne == valueTwo){
+			result.value = "Draw";
+			result.winner = " Tie, no one wins";
 		}else{
-			console.log(computerIndex,'-----',userIndex)
-			var result =  computerIndex > userSelection ? "Computer wins" : "You won";
-			this.displayWinner(result);
+			switch(valueOne){
+				case "rock":
+					if (valueTwo === "scissors"){
+						result.value="Rock beats Scissors";
+						result.winner="Player One";
+					}else{
+						result.value="Paper beats Rock";
+						result.winner="Player Two";
+					}
+					break;
+				case "scissors":
+					if (valueTwo === "paper"){
+						result.value="Scissors beats Paper";
+						result.winner="Player One";
+					}else{
+						result.value="Rock beats Scissors";
+						result.winner="Player Two"
+					}
+					break;
+				case "paper":
+					if (valueTwo == "rock"){
+						result.value="Paper beats Rock";
+						result.winner="Player One";
+					}else{
+						result.value="Scissors beats Paper";
+						result.winner="Player Two";
+					}
+			}
 		}
+		//return the result so we can unit test the function
+		return result;
 	},
 	displayWinner : function(result){
-		var scoreElement = this.getElement('.result');
-		scoreElement.innerHTML=result;
+		var scoreElement = this.getElement('.result'),
+			winningSide = '';
+
+		if(result.value.toLowerCase() === "draw"){
+			winningSide = result.winner;
+		}else{
+		 	winningSide = result.winner.toLowerCase()=="player one" ? "You win" : "Computer Wins";
+		}
+		scoreElement.innerHTML=result.value + '</br>' + winningSide;
 	},
 	/*** initialize the game defaults based on the game mode selected ***/
 	startGame : function(type){
@@ -137,8 +182,6 @@ var Game = {
 	}
 }
 
-Game.init();
-
 module.exports = Game;
 
 
@@ -152,7 +195,7 @@ module.exports = Game;
 
 
 
-},{"./ComputerPlayer":1,"./Player":3}],3:[function(require,module,exports){
+},{"./ComputerPlayer":2,"./Player":4}],4:[function(require,module,exports){
 var config = require('./config');
 
 /*** constructor function for Human Player ***/
@@ -164,15 +207,15 @@ Player.prototype.setSelection = function(selection){
 	return selection;
 }
 Player.prototype.getSelection = function(){
-	var index = config.options.indexOf(this.selection)
+	var index = config.options.indexOf(this.selection);
 	return {"index":index,"value":this.selection};
 }
 module.exports = Player;
-},{"./config":4}],4:[function(require,module,exports){
+},{"./config":5}],5:[function(require,module,exports){
 var options = ["rock","paper","scissors"];
 
 var defaults = {
 	"options" : options
 }
 module.exports = defaults
-},{}]},{},[1,2,3,4]);
+},{}]},{},[2,3,4,5,1]);

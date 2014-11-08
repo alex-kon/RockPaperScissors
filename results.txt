@@ -1,13 +1,27 @@
 
 [0m[0m
 [0m  test the ComputerPlayer Model[0m
-1 '*******'
 [2K[0G  [32m  ✓[0m[90m calling the Computer model getter should set a random value of rock,paper or scissors [0m
+
+[0m  test the Game Model[0m
+[0m    tie game[0m
+[2K[0G    [32m  ✓[0m[90m getWinner function should return draw if both selections are the same [0m
+[2K[0G    [32m  ✓[0m[90m getWinner function should return draw if both selections are the same [0m
+[2K[0G    [32m  ✓[0m[90m getWinner function should return draw if both selections are the same [0m
+[0m    Rock beats Scissors[0m
+[2K[0G    [32m  ✓[0m[90m getWinner function : Rock beats Scissors player 1 wins [0m
+[2K[0G    [32m  ✓[0m[90m getWinner function : Rock beats Scissors player 2 wins [0m
+[0m    Scissors beats Paper[0m
+[2K[0G    [32m  ✓[0m[90m getWinner function : Scissors beats Paper player 1 wins  [0m
+[2K[0G    [32m  ✓[0m[90m getWinner function : Scissors beats Paper player 2 wins [0m
+[0m    Paper beats Rock[0m
+[2K[0G    [32m  ✓[0m[90m getWinner function : Paper beats Rock player 1 wins [0m
+[2K[0G    [32m  ✓[0m[90m getWinner function : Paper beats Rock player 2 wins [0m
 
 [0m  test the Player Model[0m
 [2K[0G  [32m  ✓[0m[90m seting a selection for the Player model should set the correct value [0m
-[2K[0G  [32m  ✓[0m[90m calling the Player model getter should set the correct value [0m
+[2K[0G  [32m  ✓[0m[90m calling the Player model getter should return the correct value [0m
 
 
-[92m [0m[32m 3 passing[0m[90m (7ms)[0m
+[92m [0m[32m 12 passing[0m[90m (10ms)[0m
 

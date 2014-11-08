@@ -7,8 +7,7 @@ function ComputerPlayer(name){
 	Player.call(this,name);
 }
 ComputerPlayer.prototype.getRandomSelection = function(first_argument) {
-	var index = Math.floor(Math.random() * (2 - 0) + 0);
-	console.log(index,'*******')
+	var index = Math.floor(Math.random() * 3);
 	return {"index":index,"value":config.options[index]};
 };
 

@@ -11,7 +11,7 @@ describe('test the Player Model', function(){
 		var selection = HumanPlayer.setSelection("rock");
 	  	expect(selection).to.equal("rock");
 	});
-	it('calling the Player model getter should set the correct value', function(){
+	it('calling the Player model getter should return the correct value', function(){
 		HumanPlayer.setSelection("paper");
 		var selection = HumanPlayer.getSelection();
 	  	expect(selection.value).to.equal("paper");
