@@ -17,14 +17,14 @@ describe('test the Game Model', function(){
 			expect(result.value).to.equal("Draw");
 		});
 		it('getWinner function should return draw if both selections are the same', function(){
-			var winner = Game.getWinner(
+			var result = Game.getWinner(
 				{"index":options.indexOf("scissors"),"value":"scissors"},
 				{"index":options.indexOf("scissors"),"value":"scissors"}
 			);
 			expect(result.value).to.equal("Draw");
 		});
 		it('getWinner function should return draw if both selections are the same', function(){
-			var winner = Game.getWinner(
+			var result = Game.getWinner(
 				{"index":options.indexOf("paper"),"value":"paper"},
 				{"index":options.indexOf("paper"),"value":"paper"}
 			);
@@ -42,7 +42,7 @@ describe('test the Game Model', function(){
 			expect(result.winner.toLowerCase()).to.equal("player one");
 		});
 		it('getWinner function : Rock beats Scissors player 2 wins', function(){
-			var winner = Game.getWinner(
+			var result = Game.getWinner(
 				{"index":options.indexOf("scissors"),"value":"scissors"},
 				{"index":options.indexOf("rock"),"value":"rock"}
 			);

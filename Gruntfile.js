@@ -25,14 +25,36 @@ module.exports = function(grunt) {
         },
         src: ['tests/*.js']
       }
-    }
+    },
 
+    jshint: {
+      all: ['Gruntfile.js', './js/*.js']
+    },
+
+    complexity: {
+            generic: {
+                src: ['./js/*.js'],
+                options: {
+                    breakOnErrors: false,
+                    jsLintXML: 'report.xml',         // create XML JSLint-like report
+                    checkstyleXML: 'checkstyle.xml', // create checkstyle report
+                    errorsOnly: false,               // show only maintainability errors
+                    cyclomatic: [3, 7, 12],          // or optionally a single value, like 3
+                    halstead: [8, 13, 20],           // or optionally a single value, like 8
+                    maintainability: 100,
+                    hideComplexFunctions: false,     // only display maintainability
+                    broadcast: false                 // broadcast data over event-bus
+                }
+            }
+        }
 
   });
 
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-complexity');
 
-  grunt.registerTask('default', ['mochaTest','browserify']);
+  grunt.registerTask('default', ['jshint','complexity','mochaTest','browserify']);
 
 };
