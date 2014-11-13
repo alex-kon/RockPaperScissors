@@ -1,10 +1,66 @@
-/*** generic rules ***/
+/*** generic global rules ***/
 body{
 	background-color: #F0FAFF;
+	font-family: 'Indie Flower', cursive;
+}
+h1,
+h2,
+h3{
+	margin: 0 auto;
+}
+h1{
+	font-size: 3em;
+}
+h2{
+	font-size: 1.7em;
+}
+.button-v1{
+	color: #fff;
+	background-color: #337ab7;
+	border-color: #2e6da4;
+}
+.button-v2{
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc
+}
+.button-v3{
+	color: #fff;
+	background-color: #5bc0de;
+	border-color: #46b8da;
+}
+/* bootstrap code fur buttons*/
+.button{
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 1em;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
 }
 /*** main game board ***/
+.game-title{
+	font-size: 2em;
+}
 .game-board {
-	height: 100%;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	top: 0px;
+	margin: auto;
+	margin-top: 50px;
 }
 .game-board_computer {
 	display: none;
@@ -38,10 +94,28 @@ body{
 	z-index: 999;
 	width: 100%;
 }
-.header-player,
+.score{
+	text-align: center;
+	display: none;
+}
+.score-board{
+	min-height: 180px;
+	position: relative;
+	display: inline-table;
+	width: 100%;
+}
+.game-title,
 .header-computer{
 	display: none;
+	vertical-align: middle;
+	position: relative;
 	text-align: center;
+}
+@media (min-width: 600px) {
+	.game-title,
+	.header-computer{
+		margin-top: 150px;
+	}
 }
 .result{
 	text-align: center;
@@ -54,13 +128,34 @@ body{
 	border: 3px solid;
 	border-radius: 85px;
 	width: 170px;
-	height: 170px;
+	height: 112px;
 	text-align: center;
 	vertical-align: middle;
 	padding-top: 58px;
 	margin-top: 21px;
 	margin:auto;
 	display: none;
+}
+.result-board{
+	margin: auto;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 50%;
+	font-size: 2em;
+	margin-top: 15px;
+}
+.player-two-title,
+.player-one-title{
+	text-align: center;
+	font-size: 2em;
+}
+.player-two-selection,
+.player-one-selection{
+	text-align: center;
+	font-size: 1.8em;
+	min-height: 50px;
 }
 /*** starting game board (Game Mode selection - welcome screen) ***/
 .start-game{

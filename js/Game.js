@@ -12,9 +12,8 @@ var rock="rock",
 /** 
 *	global models 
 **/	
-var HumanPlayer=null,
-	ComputerPlayerOne=null,
-	ComputerPlayerTwo=null;
+var PlayerOne=null,
+	PlayerTwo=null;
 
 /** 
 *	main Game object that contains the logic to determine the winner 
@@ -61,42 +60,79 @@ var Game = {
 	* selected choice (rock,paper,scissors)
 	**/
 	playGame : function(userChoice){
-		var that = this;
 
 		//set the Player Model vars
-		that.setPlayerSelection(userChoice);
+		this.setPlayerSelection(userChoice,PlayerOne);
 
 		//get random Computer Selection
-		var computerSelection = ComputerPlayerOne.getRandomSelection();
+		var computerSelection = PlayerTwo.getRandomSelection();
 
 		//get Human selection
-		var userSelection = HumanPlayer.getSelection();
+		var userSelection = PlayerOne.getSelection();
 
 		//get the Winner
-		var result = that.getWinner(userSelection,computerSelection);
+		var result = this.getWinner(userSelection,computerSelection);
 
-		//show the result in the screen
+		//show the result on screen
+		this.showResultOnScreen(result,userSelection,computerSelection);
+
+	},
+	showPlayerOneResult: function(userSelection){
+		var playerEl = helpers.getElement('.player-one-selection');
+		playerEl.innerHTML=userSelection.value;
+	},
+	showPlayerTwoResult: function(userSelection){
+		var playerEl = helpers.getElement('.player-two-selection');
+		playerEl.innerHTML=userSelection.value;
+	},
+	showResultOnScreen: function(result,playerOneChoice,playerTwoChoice){
+		var that = this;
+		/*
+		* show the result in the screen
+		**/
+		//start the countdown animation
 		helpers.startCountDown();
 		var countDownEl = helpers.getElement('.countdown');
 		var resultEl = helpers.getElement('.result');
+		var gameTitleEl = helpers.getElement('.game-title');
+
+		gameTitleEl.style.display="none";
+		//increase the score for the winner
+		that.setScore(result.winner);
 
 		setTimeout(function(){
+			
+			//display the actual score in the HTML
+			that.displayScore(result.winner);
+
+			//end the countdown animation
 			countDownEl.style.display="none";
+			countDownEl.innerHTML="";
+
+			//show the result on screen
 			resultEl.style.display="block";
-			that.displayWinner(result);	
-		},4000);
+
+			//show the winning message on screen
+			that.displayMessage(result);
+
+			//show player one choice on the screen
+			that.showPlayerOneResult(playerOneChoice);
+			//show player two choice
+			that.showPlayerTwoResult(playerTwoChoice);
+
+		},3000);
 	},
 	/** 
 	*	calls the setter of the Player model
 	*	@param {string} userChoice - contains the choice of the user
 	**/
-	setPlayerSelection : function(userChoice){
+	setPlayerSelection : function(userChoice,player){
 		if(userChoice.indexOf(rock) >= 0){
-			HumanPlayer.setSelection(rock);
+			player.setSelection(rock);
 		}else if (userChoice.indexOf(paper) >= 0){
-			HumanPlayer.setSelection(paper);
+			player.setSelection(paper);
 		}else {
-			HumanPlayer.setSelection(scissors);
+			player.setSelection(scissors);
 		}	
 	},
 	/**
@@ -182,7 +218,7 @@ var Game = {
 	*	@param {object} result - contains the winning player and the result
 	* 	eg result = {"value":"Scissors beats Paper","winner":"Player One"}
 	**/
-	displayWinner : function(result){
+	displayMessage : function(result){
 		var scoreElement = helpers.getElement('.result'),
 			resultValue = result.value.toLowerCase(),
 			resultWinner = result.winner.toLowerCase(),
@@ -205,17 +241,61 @@ var Game = {
 		helpers.fadeOut(element);
 
 		if(type === "player"){
-			var playerHeader = helpers.getElement('.header-player');
-			playerHeader.style.display = "block";
+			var gameTitleEl = helpers.getElement('.game-title');
+			gameTitleEl.style.display = "table-cell";
 
 			//initialize the Game models - one Computer Game and one Human Player
-			HumanPlayer=new PlayerModel();
-			ComputerPlayerOne =new ComputerModel();
+			PlayerOne = new PlayerModel(0);
+			PlayerTwo = new ComputerModel(0);
 
 		}else if (type === "computer"){
 
 		}
+	},
+	/**
+	* increase the score for the winner
+	* @param {string} winner - represents the winning player
+	**/
+	setScore: function(winner){
+		if(winner==="Player One"){
+			PlayerOne.setScore(parseInt(PlayerOne.getScore())+1);
+		}else if(winner==="Player Two"){
+			PlayerTwo.setScore(PlayerTwo.getScore()+1);
+		}
+	},
+	/**
+	* display the score for of the current Game
+	**/
+	displayScore: function(){
+		//Player one score
+		var scoreEl = helpers.getElement('.score');
+		scoreEl.innerHTML = PlayerOne.getScore() + ' / ' + PlayerTwo.getScore();
+		scoreEl.style.display="block";
+	},
+	/**
+	* start a new game
+	**/
+	startNewGame: function(){
+		
+		//set the initial objects to null
+		PlayerOne = null;
+		PlayerTwo = null;
+
+		//display the start panel
+		var startPanel = helpers.getElement('.start-game-panel');
+		helpers.fadeIn(startPanel);
+
+		//reset the old html
+
+	},
+	/**
+	* reset the html elements that contain the game title and the score board.
+	**/
+	resetGamePanel : function(){
+		
+		
 	}
+
 };
 
 module.exports = Game;

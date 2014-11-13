@@ -21,7 +21,9 @@
 [0m  test the Player Model[0m
 [2K[0G  [32m  ✓[0m[90m seting a selection for the Player model should set the correct value [0m
 [2K[0G  [32m  ✓[0m[90m calling the Player model getter should return the correct value [0m
+[2K[0G  [32m  ✓[0m[90m when a Player object is initialized score should be 0 [0m
+[2K[0G  [32m  ✓[0m[90m calling the set score function should increase the score of the player by 1 [0m
 
 
-[92m [0m[32m 12 passing[0m[90m (13ms)[0m
+[92m [0m[32m 14 passing[0m[90m (39ms)[0m
 

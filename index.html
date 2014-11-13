@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
@@ -13,9 +13,9 @@
 	<div class="play-again">Play Again</div>
 
 
-	<div class="container-fluid">
+	<div class="container">
 		
-		<div class="start-game-panel row">
+		<div class="start-game-panel">
 			<div class="start-game">
 
 			</div>
@@ -23,39 +23,43 @@
 				<h1>Play Rock Paper Scissors</h1>
 				<h2>Choose the type of game to play</h2>
 				<div class="game-mode">
-					<button type="button" class="btn btn-primary btn-lg computer-vs-computer">Computer Vs Computer</button>
-  					<button type="button" class="btn btn-default btn-lg player-vs-computer">Player vs Computer</button>
+					<button type="button" class="computer-vs-computer button button-v1">Computer Vs Computer</button>
+  					<button type="button" class="player-vs-computer button button-v2">Player vs Computer</button>
   				</div>
 			</div>
 		</div>
 
 		<div class="game-board">
 			
-			<h1 class="header-player">Play against the computer - Choose your hand to start playing</h1>
 
-			<h1 class="header-computer">Computer vs Computer - hit start to start playing</h1>
+			<h2 class="header-computer">Computer vs Computer - hit start to start playing</h2>
 
 			<div class="row">
 
-				<div class="game-board_player1 col-md-4">
+				<div class="player-two-title">Computer's Choice</div>
+				<div class="player-two-selection"></div>
+
+				<div class="score-board">
+					<div class="game-title">Play against the computer - Choose your option to start playing</div>
+					<div class="countdown"></div>
+					<div class="result-board">
+						<div class="result"></div>
+						<div class="score"></div>
+					</div>
+				</div>			
+				
+				<div class="player-one-title">Your Choice</div>
+				<div class="player-one-selection"></div>
+
+				<div class="game-board_player1">
 					<div class="btn-group choices">
-						<div class="btn-group btn btn btn-success rock">Rock</div>
-  						<div class="btn-group btn btn-primary paper">Paper</div>
-  						<div class="btn-group btn btn-info scisccors">Scissors</div>
+						<button type="button" class="button button-v1 rock">Rock</button>
+  						<button type="button" class="button button-v2 paper">Paper</button>
+  						<button type="button" class="button button-v3 scisccors">Scissors</button>
 					</div>
 				</div>
 
-				<div class="game-board_score-board col-md-4">
-					<h1 class="countdown"></h1>
-					<h2 class="result"></h2>
-				</div>			
-
-				<div class="game-board_player2 col-md-4">
-					<h3>Computer's Choice</h3>
-					<h4 class="player-two-result"></h4>
-				</div>
-
-				<div class="game-board_computer col-md-4"></div>
+				<div class="game-board_computer"></div>
 
 			</div>
 

@@ -1,5 +1,5 @@
 var Player = require('../js/Player');
-var HumanPlayer = new Player();
+var HumanPlayer = new Player(0);
 
 var chai = require('chai');
 var expect = chai.expect;
@@ -15,6 +15,15 @@ describe('test the Player Model', function(){
 		HumanPlayer.setSelection("paper");
 		var selection = HumanPlayer.getSelection();
 	  	expect(selection.value).to.equal("paper");
+	});
+	it('when a Player object is initialized score should be 0',function(){
+		var initialScore = 	HumanPlayer.getScore();
+		expect(initialScore).to.equal(0);
+	});
+	it('calling the set score function should increase the score of the player by 1',function(){
+		HumanPlayer.setScore(HumanPlayer.getScore()+1);
+		var newScore = 	HumanPlayer.getScore();
+		expect(newScore).to.equal(1);
 	});
 	
 });
