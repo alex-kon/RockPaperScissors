@@ -3,6 +3,12 @@
 [0m  test the ComputerPlayer Model[0m
 [2K[0G  [32m  ✓[0m[90m calling the Computer model getter should set a random value of rock,paper or scissors [0m
 
+[0m  test the Player Model[0m
+[2K[0G  [32m  ✓[0m[90m seting a selection for the Player model should set the correct value [0m
+[2K[0G  [32m  ✓[0m[90m calling the Player model getter should return the correct value [0m
+[2K[0G  [32m  ✓[0m[90m when a Player object is initialized score should be 0 [0m
+[2K[0G  [32m  ✓[0m[90m calling the set score function should increase the score of the player by 1 [0m
+
 [0m  test the Game Model[0m
 [0m    tie game[0m
 [2K[0G    [32m  ✓[0m[90m getWinner function should return draw if both selections are the same [0m
@@ -18,12 +24,6 @@
 [2K[0G    [32m  ✓[0m[90m getWinner function : Paper beats Rock player 1 wins [0m
 [2K[0G    [32m  ✓[0m[90m getWinner function : Paper beats Rock player 2 wins [0m
 
-[0m  test the Player Model[0m
-[2K[0G  [32m  ✓[0m[90m seting a selection for the Player model should set the correct value [0m
-[2K[0G  [32m  ✓[0m[90m calling the Player model getter should return the correct value [0m
-[2K[0G  [32m  ✓[0m[90m when a Player object is initialized score should be 0 [0m
-[2K[0G  [32m  ✓[0m[90m calling the set score function should increase the score of the player by 1 [0m
 
-
-[92m [0m[32m 14 passing[0m[90m (39ms)[0m
+[92m [0m[32m 14 passing[0m[90m (12ms)[0m
 

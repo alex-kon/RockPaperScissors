@@ -25,7 +25,7 @@ module.exports = ComputerPlayer;
 var PlayerModel = require('./Player');
 var ComputerModel = require('./ComputerPlayer');
 var helpers = require('./helpers');
-
+var controller = require('./winController');
 /** 
 *	static vars 
 **/
@@ -60,22 +60,58 @@ var Game = {
 		//bind the event to Player vs Computer button the start panel
 		var startPlayerGame = helpers.getElement('.player-vs-computer');
 		startPlayerGame.addEventListener("click",function(){
+			var gameBoard = helpers.getElement('.game-board').classList;
+			gameBoard.add('player-vs-computer-game');
+			gameBoard.remove('computer-vs-computer-game');
+			//start playing
 			that.startGame("player");
 		});
 
 		//bind the event to Computer vs Computer button the start panel
 		var startComputerGame = helpers.getElement('.computer-vs-computer');
 		startComputerGame.addEventListener("click",function(){
+			var gameBoard = helpers.getElement('.game-board').classList;
+			gameBoard.add('computer-vs-computer-game');
+			gameBoard.remove('player-vs-computer-game');
+			//start the first game
 			that.startGame("computer");
+			that.playComputerGame();
 		});
 
-		/*** initialize the event handlers for the user seelctions ***/
-		var gameBoardPlayer = helpers.getElement('.game-board_player1');
+		/*** initialize the event handlers for the user game ***/
+		var gameBoardPlayer = helpers.getElement('.choices');
 		gameBoardPlayer.addEventListener("click",function(event){
 			var classes = event.target.className;
 			//start the game
 			that.playGame(classes);
 		});
+
+		/*** initialize the event handlers for the play new game action ***/
+		var playAgainEl = helpers.getElement('.play-again');
+		playAgainEl.addEventListener("click",function(event){
+			//start the game
+			that.startNewGame();
+		});
+
+		var playAgainSameGameEl = helpers.getElement('.play-again-same-game');
+		playAgainSameGameEl.addEventListener("click",function(event){
+			//start the game
+			that.playComputerGame();
+		});
+	},
+	/**
+	* starts a computer vs computer game
+	**/
+	playComputerGame: function(){
+
+		var playerOneChoice = PlayerOne.getRandomSelection();
+		var playerTwoChoice = PlayerTwo.getRandomSelection();
+		
+		//get the Winner
+		var result = controller.getWinner(playerOneChoice,playerTwoChoice);
+
+		//show the result on screen
+		this.showResultOnScreen(result,playerOneChoice,playerTwoChoice);		
 
 	},
 	/**
@@ -95,11 +131,33 @@ var Game = {
 		var userSelection = PlayerOne.getSelection();
 
 		//get the Winner
-		var result = this.getWinner(userSelection,computerSelection);
+		var result = controller.getWinner(userSelection,computerSelection);
 
 		//show the result on screen
 		this.showResultOnScreen(result,userSelection,computerSelection);
 
+	},
+	/**
+	* Initialize the correct heading based on the game mode
+	**/
+	initHeading: function(){
+		var playerOneHeader = helpers.getElement('.player-one-title');
+		var playerTwoHeader = helpers.getElement('.player-two-title');
+
+		var playerOneScore = helpers.getElement('.player-one-selection');
+		var playerTwoScore = helpers.getElement('.player-two-selection');
+		
+		playerOneScore.innerHTML="";
+		playerTwoScore.innerHTML="";
+
+		if(PlayerOne instanceof ComputerModel){
+			playerOneHeader.innerHTML="Player One Choice";
+			playerTwoHeader.innerHTML="Player Two Choice";
+		}else{
+			console.log('here');
+			playerOneHeader.innerHTML="Your choice";
+			playerTwoHeader.innerHTML="Computer's Choice";
+		}
 	},
 	showPlayerOneResult: function(userSelection){
 		var playerEl = helpers.getElement('.player-one-selection');
@@ -121,6 +179,7 @@ var Game = {
 		var gameTitleEl = helpers.getElement('.game-title');
 
 		gameTitleEl.style.display="none";
+
 		//increase the score for the winner
 		that.setScore(result.winner);
 
@@ -160,84 +219,6 @@ var Game = {
 		}	
 	},
 	/**
-	* 	determine the winner of the game based on the choices provided
-	*	@param {object} playerOneChoice - contains the choice of the first player {"index":index,"value":this.selection}
-	*	@param {object} playerTwoChoice - contains the choice of the second player {"index":index,"value":this.selection}
-	*	returns the winning user, player1 or player2, and the result eg. Rock beats Scissors
-	**/
-	getWinner : function(playerOneChoice,playerTwoChoice){
-
-		var valueOne = playerOneChoice.value,
-			valueTwo = playerTwoChoice.value;
-
-		//if the indexes are the same then it is a tie
-		if(valueOne == valueTwo){
-			return {"value":"Draw","winner":"Tie, no one wins"};
-		//else find the winner
-		}else{
-			return this.getWinningCombination(valueOne,valueTwo);
-		}
-
-	},
-	/**
-	*	@param {string} playerOneChoice
-	*	@param {string} playerTwoChoice
-	**/
-	getWinningCombination: function(valueOne,valueTwo){
-		if(valueOne=="rock"){
-			return this.findRockWinner(valueTwo);
-		}else if(valueOne=="scissors"){
-			return this.findScissorsWinner(valueTwo);
-		}else{
-			return this.findPaperWinner(valueTwo);
-		}
-	},
-	/**
-	*	Find the winner if the first value is scissors
-	*	@param {string} playerOneChoice
-	**/
-	findRockWinner : function(value){
-		var result={};
-		if (value === "scissors"){
-			result.value="Rock beats Scissors";
-			result.winner="Player One";
-		}else{
-			result.value="Paper beats Rock";
-			result.winner="Player Two";
-		}
-		return result;
-	},
-	/**
-	*	Find the winner if the first value is paper
-	*	@param {string} playerOneChoice
-	**/
-	findScissorsWinner: function(value){
-		var result={};
-		if (value === "paper"){
-			result.value="Scissors beats Paper";
-			result.winner="Player One";
-		}else{
-			result.value="Rock beats Scissors";
-			result.winner="Player Two";
-		}
-		return result;
-	},
-	/**
-	*	Find the winner if the first value is rock
-	*	@param {string} playerOneChoice
-	**/
-	findPaperWinner: function(value){
-		var result={};
-		if (value == "rock"){
-			result.value="Paper beats Rock";
-			result.winner="Player One";
-		}else{
-			result.value="Scissors beats Paper";
-			result.winner="Player Two";
-		}
-		return result;
-	},
-	/**
 	*	display the winner on the UI
 	*	@param {object} result - contains the winning player and the result
 	* 	eg result = {"value":"Scissors beats Paper","winner":"Player One"}
@@ -260,21 +241,27 @@ var Game = {
 	*	@param {string} type - sets the player mode - either a player vs computer game or computer vs computer game
 	**/
 	startGame : function(type){
-
+		
 		var element = helpers.getElement('.start-game-panel');
 		helpers.fadeOut(element);
+		
+		var gameTitleEl = helpers.getElement('.game-title');
+		gameTitleEl.style.display = "table-cell";
 
 		if(type === "player"){
-			var gameTitleEl = helpers.getElement('.game-title');
-			gameTitleEl.style.display = "table-cell";
-
 			//initialize the Game models - one Computer Game and one Human Player
 			PlayerOne = new PlayerModel(0);
 			PlayerTwo = new ComputerModel(0);
 
 		}else if (type === "computer"){
-
+			//initialize the Game models - one Computer Game and one Human Player
+			PlayerOne = new ComputerModel(0);
+			PlayerTwo = new ComputerModel(0);
 		}
+
+		//show different heading if game is Computer vs Human or Computer vs Computer
+		this.initHeading();
+
 	},
 	/**
 	* increase the score for the winner
@@ -304,22 +291,19 @@ var Game = {
 		//set the initial objects to null
 		PlayerOne = null;
 		PlayerTwo = null;
-
+		console.log('reset : ',PlayerOne);
 		//display the start panel
 		var startPanel = helpers.getElement('.start-game-panel');
-		helpers.fadeIn(startPanel);
-
-		//reset the old html
-
-	},
-	/**
-	* reset the html elements that contain the game title and the score board.
-	**/
-	resetGamePanel : function(){
+		startPanel.style.display="block";
+		startPanel.style.opacity="1";
 		
-		
+		var resultPanelEl = helpers.getElement('.result');
+		resultPanelEl.style.display="none";
+
+		var scorePanelEl = helpers.getElement('.score');
+		scorePanelEl.style.display="none";
+
 	}
-
 };
 
 module.exports = Game;
@@ -335,7 +319,7 @@ module.exports = Game;
 
 
 
-},{"./ComputerPlayer":2,"./Player":4,"./helpers":6}],4:[function(require,module,exports){
+},{"./ComputerPlayer":2,"./Player":4,"./helpers":6,"./winController":7}],4:[function(require,module,exports){
 var config = require('./config');
 /**
 * Represents a single Player.
@@ -437,4 +421,89 @@ var helpers = {
 };
 
 module.exports = helpers;
-},{}]},{},[2,3,4,5,6,1]);
+},{}],7:[function(require,module,exports){
+
+
+var winController = {
+	/**
+	* 	determine the winner of the game based on the choices provided
+	*	@param {object} playerOneChoice - contains the choice of the first player {"index":index,"value":this.selection}
+	*	@param {object} playerTwoChoice - contains the choice of the second player {"index":index,"value":this.selection}
+	*	returns the winning user, player1 or player2, and the result eg. Rock beats Scissors
+	**/
+	getWinner : function(playerOneChoice,playerTwoChoice){
+
+		var valueOne = playerOneChoice.value,
+			valueTwo = playerTwoChoice.value;
+
+		//if the indexes are the same then it is a tie
+		if(valueOne == valueTwo){
+			return {"value":"Draw","winner":"Tie, no one wins"};
+		//else find the winner
+		}else{
+			return this.getWinningCombination(valueOne,valueTwo);
+		}
+
+	},
+	/**
+	*	@param {string} playerOneChoice
+	*	@param {string} playerTwoChoice
+	**/
+	getWinningCombination: function(valueOne,valueTwo){
+		if(valueOne=="rock"){
+			return this.findRockWinner(valueTwo);
+		}else if(valueOne=="scissors"){
+			return this.findScissorsWinner(valueTwo);
+		}else{
+			return this.findPaperWinner(valueTwo);
+		}
+	},
+	/**
+	*	Find the winner if the first value is scissors
+	*	@param {string} playerOneChoice
+	**/
+	findRockWinner : function(value){
+		var result={};
+		if (value === "scissors"){
+			result.value="Rock beats Scissors";
+			result.winner="Player One";
+		}else{
+			result.value="Paper beats Rock";
+			result.winner="Player Two";
+		}
+		return result;
+	},
+	/**
+	*	Find the winner if the first value is paper
+	*	@param {string} playerOneChoice
+	**/
+	findScissorsWinner: function(value){
+		var result={};
+		if (value === "paper"){
+			result.value="Scissors beats Paper";
+			result.winner="Player One";
+		}else{
+			result.value="Rock beats Scissors";
+			result.winner="Player Two";
+		}
+		return result;
+	},
+	/**
+	*	Find the winner if the first value is rock
+	*	@param {string} playerOneChoice
+	**/
+	findPaperWinner: function(value){
+		var result={};
+		if (value == "rock"){
+			result.value="Paper beats Rock";
+			result.winner="Player One";
+		}else{
+			result.value="Scissors beats Paper";
+			result.winner="Player Two";
+		}
+		return result;
+	}
+};
+
+module.exports = winController;
+},{}]},{},[2,3,4,5,6,7,1]);

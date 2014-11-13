@@ -50,6 +50,24 @@ h2{
 	border-radius: 4px;
 }
 /*** main game board ***/
+
+/* hide the play again button if the game mode is a computer vs player **/
+.player-vs-computer-game .play-again-same-game{
+	display: none;
+}
+/* hide the buttons panel again button if the game mode is a computer vs computer **/
+.computer-vs-computer-game .choices{
+	display: none;
+}
+.computer-vs-computer-game .play-again-same-game{
+	display: block;
+}
+.play-again,
+.play-again-same-game{
+	margin: 0 auto;
+	display: block;
+	margin-top: 20px;
+}
 .game-title{
 	font-size: 2em;
 }
@@ -77,13 +95,6 @@ h2{
 	text-align: center;
 	margin-top: 5%;
 }
-.play-again{
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	display: none;
-	margin-left: -112px;
-}
 .game-board_player1{
 	text-align: center;
 }
@@ -99,7 +110,7 @@ h2{
 	display: none;
 }
 .score-board{
-	min-height: 180px;
+	min-height: 176px;
 	position: relative;
 	display: inline-table;
 	width: 100%;
@@ -110,12 +121,6 @@ h2{
 	vertical-align: middle;
 	position: relative;
 	text-align: center;
-}
-@media (min-width: 600px) {
-	.game-title,
-	.header-computer{
-		margin-top: 150px;
-	}
 }
 .result{
 	text-align: center;
@@ -143,19 +148,25 @@ h2{
 	right: 0px;
 	bottom: 0px;
 	height: 50%;
-	font-size: 2em;
-	margin-top: 15px;
+	font-size: 2.3em;
 }
 .player-two-title,
 .player-one-title{
 	text-align: center;
-	font-size: 2em;
+	font-size: 1.5em;
 }
 .player-two-selection,
 .player-one-selection{
 	text-align: center;
-	font-size: 1.8em;
+	font-size: 1.5em;
 	min-height: 50px;
+	margin-bottom: 10px;
+}
+@media (min-width: 600px) {
+	.game-title,
+	.header-computer{
+		margin-top: 150px;
+	}
 }
 /*** starting game board (Game Mode selection - welcome screen) ***/
 .start-game{
@@ -176,6 +187,11 @@ h2{
 	bottom: 0px;
 	margin: auto;
 	height: 50%;
+}
+@media (max-width: 600px) {
+	.choose-game{
+		top: -154px;
+	}
 }
 .game-mode{
 	margin-top: 40px;
